@@ -1,7 +1,7 @@
 # WebFlux
 
 ### 场景说明
-Spring Boot的webflux:
+Spring Boot的webflux：
 
 * 定义用户模型，属性：用户id、名称
 * 客户端发送post请求，创建用户（Web MVC）
