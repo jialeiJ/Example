@@ -1,0 +1,7 @@
+# 数据库基本配置
+spring:
+  datasource:
+    url: ENC(TIGOEB85ABSA+AT7M0tCbn15I7SSQaIvyYK18h0nu+By7THh8/ABdtEb6ZXMOSS4RQXkccDzJyGlTE1DDVtN3OOHlid8/Ej+zJFtIoOpZ3McapFugoiH44ru1IcKKSxk4WlIv5lxi6JkpCy1LDKNpp8TTIXVTPn1)
+    username: ENC(06xYRaQsjajt2WeUDkSS2g==)
+    password: ENC(06xYRaQsjajt2WeUDkSS2g==)
+    driver-class-name: com.mysql.jdbc.Driver
