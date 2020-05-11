@@ -125,7 +125,7 @@ JasyptConfig如下：
 		}
 	}
 
-### 加密方法在单元测试中
+### 加密方法在单元测试中**
 
     @Slf4j
 	@SpringBootTest
@@ -148,5 +148,6 @@ JasyptConfig如下：
     
 ### 注意：
 
+    启动项目时需要设置环境变量
     jasypt.encryptor.password=你的加密密码
 
