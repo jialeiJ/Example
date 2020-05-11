@@ -38,7 +38,7 @@ Spring Boot的docker打包上传：
                             <include>${project.build.finalName}.jar</include>
                         </resource>
                     </resources>
-                    <dockerHost>http://192.168.1.104:2375</dockerHost>
+                    <dockerHost>http://ip:2375</dockerHost>
                 </configuration>
             </plugin>
             <!-- Docker maven plugin -->
