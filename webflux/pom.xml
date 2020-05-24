@@ -19,12 +19,27 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
+        <fastjson.version>1.2.68</fastjson.version>
+        <druid.version>1.1.22</druid.version>
+        <mybatis.version>2.1.2</mybatis.version>
+        <pagehelper.version>1.2.13</pagehelper.version>
     </properties>
 
     <dependencies>
+        <!-- spring-boot-starter-thymeleaf -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+        <!-- fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
         </dependency>
 
         <dependency>

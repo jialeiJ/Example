@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!--Element UI-->
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+    <div id="user">
+        <div style="text-align: center;font-size: larger;font-weight: bolder">{{title}}</div>
+        <div style="text-align: center;font-size: larger;font-weight: bolder">{{name}}</div>
+        <el-form ref="userForm" :model="userForm" label-width="80px">
+            <el-row :gutter="20">
+                <el-col :span="6">
+                    <div class="grid-content bg-purple">
+                    </div>
+                </el-col>
+                <el-col :span="4">
+                    <div class="grid-content bg-purple">
+                        <el-input-number v-model="userForm.id" controls-position="right" :min="1" placeholder="编号">
+                        </el-input-number></div></el-col>
+                <el-col :span="4">
+                    <div class="grid-content bg-purple">
+                        <el-input v-model="userForm.name" placeholder="请输入姓名">
+                        </el-input></div></el-col>
+                <el-col :span="4">
+                    <div class="grid-content bg-purple">
+                        <el-date-picker
+                            v-model="userForm.createTime"
+                            type="datetime"
+                            format="yyyy-MM-dd HH:mm:ss"
+                            value-format="yyyy-MM-dd HH:mm:ss"
+                            placeholder="选择日期时间">
+                        </el-date-picker>
+                    </div>
+                </el-col>
+                <el-col :span="6">
+                    <div class="grid-content bg-purple">
+                    </div>
+                </el-col>
+            </el-row>
+        </el-form>
+        <el-button @click="addUser">添加用户</el-button>
+        <el-button @click="updateUser">更新用户</el-button>
+        <el-button @click="findUsers">用户列表</el-button>
+        <el-button @click="deleteUsers">删除用户</el-button>
+        <ul>
+            <li v-for="(item,index) in userList" :key="item.id">
+                {{ index }}--{{ item.id }}--{{item.name}}--{{item.createTime}}
+            </li>
+        </ul>
+        <el-upload
+                class="upload-demo"
+                action="/user/upload"
+                :on-change="handleChange"
+                :on-success="success"
+                accept=".jpg, .png"
+                :file-list="fileList">
+            <el-button size="small" type="primary">点击上传</el-button>
+            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        </el-upload>
+        <el-button @click="exportFile">下载</el-button>
+        <div>
+            <span th:text="${name}"></span>--<span th:text="${time}"></span><br>
+            <ul th:each="item : ${list}">
+                <li th:text="${item}"></li>
+            </ul>
+        </div>
+    </div>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#user',
+        data: function() {
+            return {
+                title: 'WebFlux 测试',
+                userForm: {
+                    id: '',
+                    name: '',
+                    createTime: ''
+                },
+                userList: [],
+                fileList: [],
+                name: '',
+                visible: false,
+            }
+        },
+        // 在 `methods` 对象中定义方法
+        methods: {
+            addUser: function(){
+                $.ajax({
+                    type: "POST",
+                    url: "/user/add",
+                    data: JSON.stringify(this.userForm),
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function(result){
+                        console.log(result);
+                    }
+                });
+            },
+            updateUser: function(){
+                console.log(this.userForm);
+                $.ajax({
+                    type: "PUT",
+                    url: "/user/update",
+                    data: JSON.stringify(this.userForm),
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function(result){
+                        console.log(result);
+                    }
+                });
+            },
+            findUsers: function(){
+                $.ajax({
+                    type: "GET",
+                    url: "/user/getList",
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function(result){
+                        console.log(result);
+                        vm.userList = result;
+                    }
+                });
+            },
+            deleteUsers: function(){
+                $.ajax({
+                    type: "DELETE",
+                    url: "/user/delete/"+this.userForm.id,
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function(result){
+                        console.log(result);
+                        vm.userList = result;
+                    }
+                });
+            },
+            handleChange: function(file, fileList) {
+                //this.fileList = fileList.slice(-3);
+            },
+            //删除图片
+            handleRemove(file, fileList) {
+                this.form.logo=''
+            },
+            //图片上传成功
+            success(response, file, fileList) {
+                this.fileLists = [];
+                this.fileLists = [file]
+                this.form.logo = file.response.result;
+            },
+            exportFile: function(){
+                var url = "/user/download";
+                //var fileName = "testAjaxDownload.jpg";
+                var form = $("<form></form>").attr("action", url).attr("method", "GET");
+                form.append($("<input></input>").attr("type", "hidden"));
+                form.appendTo('body').submit().remove();
+            },
+            created: function() {
+                vm.name = [[${name}]];
+            }
+        },
+
+    });
+</script>
+</body>
+</html>
