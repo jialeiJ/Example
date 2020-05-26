@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface JarayService {
 
-    public List<User> getList(Integer page, Integer size);
+    public List<User> findAll(Integer page, Integer size);
 
 
     public User update(User user);

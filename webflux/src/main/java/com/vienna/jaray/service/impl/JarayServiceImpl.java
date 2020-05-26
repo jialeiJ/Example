@@ -23,7 +23,7 @@ public class JarayServiceImpl implements JarayService {
     private final static AtomicInteger idGenerator = new AtomicInteger();
 
     @Override
-    public List<User> getList(Integer page, Integer size) {
+    public List<User> findAll(Integer page, Integer size) {
         List<User> userList = new ArrayList<>();
         for(Map.Entry<Integer, User> entry : userMap.entrySet()){
             userList.add(entry.getValue());

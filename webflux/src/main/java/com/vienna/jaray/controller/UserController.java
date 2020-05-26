@@ -1,7 +1,7 @@
 package com.vienna.jaray.controller;
 
 import com.vienna.jaray.pojo.User;
-import com.vienna.jaray.repository.UserRepository;
+import com.vienna.jaray.service.JarayService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,23 +11,22 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 public class UserController {
-    private final UserRepository userRepository;
+    private final JarayService jarayRepository;
     /**
      * 构造器注入
-     * @param userRepository
+     * @param jarayRepository
      */
     @Autowired
-    public UserController(UserRepository userRepository){
-        this.userRepository = userRepository;
+    public UserController(JarayService jarayRepository){
+        this.jarayRepository = jarayRepository;
     }
 
     @PostMapping("/person/save")
     public User save(@RequestParam String name){
         User user = new User();
         user.setName(name);
-        if(userRepository.save(user)){
-           log.info("用户对象： {} 保存成功！", user);
-        }
+        user = jarayRepository.add(user);
+        log.info("用户对象： {} 保存成功！", user);
         return user;
     }
 }

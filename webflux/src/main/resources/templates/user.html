@@ -14,7 +14,6 @@
 <body>
     <div id="user">
         <div style="text-align: center;font-size: larger;font-weight: bolder">{{title}}</div>
-        <div style="text-align: center;font-size: larger;font-weight: bolder">{{name}}</div>
         <el-form ref="userForm" :model="userForm" label-width="80px">
             <el-row :gutter="20">
                 <el-col :span="6">
@@ -50,6 +49,7 @@
         <el-button @click="updateUser">更新用户</el-button>
         <el-button @click="findUsers">用户列表</el-button>
         <el-button @click="deleteUsers">删除用户</el-button>
+        <input type="text" hidden th:each="item : ${list}" th:value="${item}" name="users" />
         <ul>
             <li v-for="(item,index) in userList" :key="item.id">
                 {{ index }}--{{ item.id }}--{{item.name}}--{{item.createTime}}
@@ -82,7 +82,7 @@
                 title: 'WebFlux 测试',
                 userForm: {
                     id: '',
-                    name: '',
+                    name: 'Jaray',
                     createTime: ''
                 },
                 userList: [],
@@ -90,6 +90,15 @@
                 name: '',
                 visible: false,
             }
+        },
+        created: function() {
+
+        },
+        mounted: function(){
+            $('input[name="users"]').each(function(index, el){
+                console.log(el, $(el).val());
+            });
+
         },
         // 在 `methods` 对象中定义方法
         methods: {
@@ -121,7 +130,7 @@
             findUsers: function(){
                 $.ajax({
                     type: "GET",
-                    url: "/user/getList",
+                    url: "/user/find/all",
                     dataType: "json",
                     contentType: "application/json",
                     success: function(result){
@@ -162,10 +171,8 @@
                 form.append($("<input></input>").attr("type", "hidden"));
                 form.appendTo('body').submit().remove();
             },
-            created: function() {
-                vm.name = [[${name}]];
-            }
         },
+
 
     });
 </script>

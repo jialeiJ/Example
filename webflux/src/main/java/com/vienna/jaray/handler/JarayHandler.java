@@ -17,6 +17,7 @@ import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.io.*;
@@ -30,12 +31,22 @@ public class JarayHandler {
     @Autowired
     private JarayService jarayService;
 
-    public Mono<ServerResponse> getList(ServerRequest request) {
+    public Mono<ServerResponse> findAll(ServerRequest request) {
         //获取请求参数
         String page = request.queryParam("page").orElse("1");
         String size = request.queryParam("rows").orElse("5");
-        List<User> result = jarayService.getList(Integer.valueOf(page), Integer.valueOf(size));
-        return ServerResponse.ok().body(BodyInserters.fromValue(result));
+        // 返回所有用户对象
+        List<User> result = jarayService.findAll(Integer.valueOf(page), Integer.valueOf(size));
+
+
+        Collection<User> users = result;
+        Flux<User> userFlux = Flux.fromIterable(users);
+        // 方式一
+        Mono<ServerResponse> mono = ServerResponse.ok().body(userFlux, User.class);
+
+        // 方式二
+        mono = ServerResponse.ok().body(BodyInserters.fromValue(result));
+        return mono;
     }
 
     public Mono<ServerResponse> update(ServerRequest request) {
