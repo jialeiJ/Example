@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!--Element UI-->
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+    <div id="login">
+        <el-form ref="loginForm" :model="loginForm" label-width="80px">
+            <el-row :gutter="20">
+                <el-col :span="6">
+                    <div class="grid-content bg-purple">
+                    </div>
+                </el-col>
+                <el-col :span="2">
+                    <div class="grid-content bg-purple">
+                        <el-image id="imagecode" :src="checkCodeSrc" style="height: 38px;width: 96px;"></el-image>
+                        </div></el-col>
+                <el-col :span="1">
+                    <div class="grid-content bg-purple">
+                        <el-button @click="reloadCode">看不清楚</el-button></div></el-col>
+                <el-col :span="6">
+                    <div class="grid-content bg-purple">
+                    </div>
+                </el-col>
+                <el-col :span="6">
+                    <div class="grid-content bg-purple">
+                    </div>
+                </el-col>
+            </el-row>
+        </el-form>
+    </div>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#login',
+        data: function() {
+            return {
+                checkCodeSrc: '/checkcode',
+                loginForm: {
+                    id: '',
+                    name: 'Jaray',
+                    createTime: ''
+                },
+            }
+        },
+        created: function() {
+
+        },
+        mounted: function(){
+
+        },
+        // 在 `methods` 对象中定义方法
+        methods: {
+            reloadCode: function(){
+                var time = new Date().getTime();
+                document.getElementById("imagecode").src=vm.checkCodeSrc+"?d="+time;
+            }
+        },
+
+
+    });
+</script>
+</body>
+</html>
