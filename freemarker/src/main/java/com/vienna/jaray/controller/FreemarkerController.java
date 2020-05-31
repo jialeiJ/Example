@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,7 +16,7 @@ import com.vienna.jaray.pojo.User;
 @Controller
 public class FreemarkerController {
 	
-	@RequestMapping("/freemarker")
+	@GetMapping("/freemarker")
 	public ModelAndView index(ModelAndView modelAndView) {
 		modelAndView.setViewName("freemarker");
 		modelAndView.addObject("name", "Hello Jaray!");
