@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Freemarker</title>
+</head>
+<body>
+    <!-- 自定义变量 -->
+    <p>自定义变量</p>
+    <#assign title = "Hello Freemarker"/>
+    <font size="18px">${title!}</font><br>
+    Name: ${name!}<br><!-- 对不存在或者为null的对象取值${name!},使用！后缀时当name不存在时将不会显示并不会把异常抛出 -->
+    <br><br><hr>
+
+    <!-- 基本数据类型 -->
+    <p>基本数据类型</p>
+    Int型intValue: <font color="red">${intValue!}</font><br>
+    Long型longValue: <font color="red">${longValue!}</font><br>
+    String型stringValue: <font color="red">${stringValue!}</font><br>
+    Double型doubleValue: <font color="red">${doubleValue!}</font><br>
+    <!-- Boolean类型值的format -->
+    Boolean型booleanValue: <font color="red">${booleanValue!}</font><br>
+    <!-- Date类型值的format -->
+    Date型dateValue: <font color="red">${dateValue!?string('yyyy-MM-dd HH:mm:ss')}</font><br><!-- 存在时转义,不存在时不转义 -->
+    <!-- null或者不存在的变量取值 -->
+    nullValue: <font color="red">${nullValue!'我是空'}</font><br><!-- 当对象不存在或者为null时输出默认值 -->
+    missValue: <font color="red">${missValue!}</font><br><!-- 当对象不存在或者为null时不输出 -->
+    missValue: <font color="red">${missValue!'我是默认值'}</font><br><!-- 当对象不存在或者为null时输出默认值 -->
+    <br><br><hr>
+
+    <!-- 变量的定义、赋值、运算 -->
+    <p>变量的定义、赋值、运算</p>
+    <#assign a = 100 />
+    a = <font color="red">${a}</font><br>
+    a + 100 = <font color="red">${a+100}</font><br>
+    a - 100 = <font color="red">${a-100}</font><br>
+    a * 100 = <font color="red">${a*100}</font><br>
+    a / 100 = <font color="red">${a/100}</font><br>
+    <br><br><hr>
+
+    <!-- 自定义对象变量的取值 -->
+    <p>自定义对象变量的取值</p>
+    <font color="red">${(user.name)!}</font><br><!-- 对整体进行判断,先判断user存在不存在,在判断name存在不存在 -->
+    ${(user.brief)!}<!-- 富文本形式输出 -->
+    ${(user.brief)!?html}<br><!-- 文本形式输出 -->
+    <br><br><hr>
+
+    <!-- 集合List遍历 -->
+    <p>集合List遍历</p>
+    <#list list as item>
+    <font color="red">${item!}</font><br>
+    </#list>
+    <p>集合Map遍历</p>
+    <!-- 集合Map遍历 -->
+    <#list map?keys as key>
+    <font color="red">${key!} : ${map[key]!}</font><br>
+    </#list>
+    <br><br><hr>
+
+    <!-- if语法 -->
+    <p>if语法</p>
+    <#assign value = 90 />
+    <#if value == 99>
+    <font color="red">value = 99</font><br>
+    </#if>
+
+    <#if value == 99>
+    <font color="red">value = 99</font><br><br>
+    <#else>
+    <font color="red">value != 99</font><br>
+    </#if>
+
+    <#if value &gt; 99>
+    <font color="red">value > 99</font><br><br>
+    <#elseif value ==99 >
+    <font color="red">value = 99</font><br>
+    <#else>
+    <font color="red">value < 99</font><br>
+    </#if>
+
+    <#if list??><!-- ??判断是否为null,?exit是否存在 -->
+    <#list list as item>
+    <font color="red">${item!}</font><br>
+    </#list>
+    </#if>
+
+    <#if var??><!-- ??判断是否为null,?exit是否存在 -->
+    var = <font color="red">${var!}</font><br>
+    </#if>
+    <#if title??><!-- ??判断是否为null,?exit是否存在 -->
+    title = <font color="red">${title!}</font><br>
+    </#if>
+
+    <#assign name='python'>
+    <#if name == 'python' || name == 'java'>
+    name = <font color="red">python or java</font><br>
+    </#if>
+    <#if name == 'python' && name?length == 6>
+    <font color="red">python's length is 6</font><br>
+    </#if>
+    <#assign name='java'>
+    <#if (name == 'python' && name?length == 6) || (name=='java')>
+    <font color="red">python's length is 6 or java</font><br>
+    </#if>
+    <#assign name='node.js'>
+    <#if !((name == 'python' && name?length == 6) || (name=='java'))>
+    <font color="red">not (python's length is 6 or java)</font><br>
+    </#if>
+    <br><br><hr>
+
+    <!-- switch语法 -->
+    <p>switch语法</p>
+    <#assign num = 1000/>
+    <#switch num>
+    <#case 10>
+    <#case 11> 10 or 11<br><#break>
+    <#case 100> 100<br><#break>
+    <#default> other<br><#break>
+    </#switch>
+    <#assign num = 'java'/>
+    <#switch num>
+    <#case 'java'>
+    <#case 'python'> java or python<br><#break>
+    <#case 'node.js'> node.js<br><#break>
+    <#default> other<br><#break>
+    </#switch>
+    <br><br><hr>
+
+    <!-- 字符串常用内建函数 -->
+    <p>字符串常用内建函数</p>
+    <#assign a = 'hello'/>
+    <#assign b = 'world'/>
+    a = <font color="red">${a}</font><br>
+    b = <font color="red">${b}</font><br>
+    <!-- 连接 -->
+    连接---<font color="red">${a+b}</font><br>
+    <!-- 截取 -->
+    截取---<font color="red">${(a+b)?substring(5,8)}</font><br>
+    <!-- 长度 -->
+    长度---<font color="red">${(a+b)?length}</font><br>
+    <!-- 大写 -->
+    大写---<font color="red">${(a+b)?upper_case}</font><br>
+    <!-- 小写 -->
+    小写---<font color="red">${(a+b)?lower_case}</font><br>
+    <!-- 获取出现的位置 -->
+    index_of---<font color="red">${(a+b)?index_of('w')}</font><br>
+    <!-- 获取最后一次出现的位置 -->
+    last_index_of---<font color="red">${(a+b)?last_index_of('o')}</font><br>
+    <!-- 替换 -->
+    替换---<font color="red">${(a+b)?replace('o','xx')}</font><br>
+    <br><br><hr>
+
+    <!-- 自定义函数(整数排序sort_int) -->
+    <p>自定义函数(整数排序sort_int)</p>
+    <#assign intList = [2,3,4,5,1,8,9,8,7] />
+    源数组：<#list intList as item>
+    ${item},
+    </#list><br>
+    排序数组：<#list intList?sort as item>
+    ${item},
+    </#list><br>
+    排序数组：<#list sort_int(intList) as item>
+    ${item},
+    </#list>
+    <br><hr>
+
+    <!-- 内建函数 -->
+    <!-- 处理字符串的内建函数 -->
+    <!--
+        substring(截取字符串)、cap_first(首字母大写)、ends_with(以什么结尾)、contains(包含)
+        date、datetime、time
+        starts_with、index_of、last_index_of、split、trim -->
+    <p>处理字符串的内建函数</p>
+    <#list "a|b|c|d"?split("|") as item>
+    ${item}<br>
+    </#list>
+    <!-- 处理字符串转日期 -->
+    <p>处理字符串转日期</p>
+    <#assign date = "01/03/2017"?date("MM/dd/yyyy")>
+    <#assign time = "20:03:29"?time("HH:mm:ss")>
+    <#assign datetime = "2017-12-31 20:04 PM"?datetime("yyyy-MM-dd hh:mm")>
+    ${date}<br>
+    ${time}<br>
+    ${datetime}<br>
+
+    <!-- 数字类型内建函数 -->
+    <p>处理数字类型内建函数</p>
+    <#assign num = 314.5662>
+    ${num?string("0.##")}<br>
+    ${num?round}<br>
+
+    <!-- 处理list内建函数 -->
+    <p>处理list内建函数</p>
+    <!-- 处理List的内建函数 -->
+    first(取第一个值)、last(取最后一个值)、seq_contains(包含)、seq_index_of(所在的位置)
+    size(长度)、reverse(反转)、sort(排序)、sort_by(根据属性排序)
+    chunk(分块)
+    <br>
+    <#assign list = [1,2,3,4,11,12,13,14,21,22,23,24]>
+    size = ${list?chunk(4)?size}<br>
+    <#list list?chunk(4)?last as item>
+    ${item}<br>
+    </#list>
+
+    <!-- 其他内建函数 -->
+    <p>其他内建函数</p>
+    is函数：is_string(判断是否字符串类型)、is_number(判断是否整数类型)、is_method(判断是否方法)
+    size(长度)、reverse(反转)、sort(排序)、sort_by(根据属性排序)
+    chunk(分块)
+    <br>
+    <#assign s = "hello">
+    ${s?is_number?string('yes','no')}<br>
+    ${s?has_content?string('yes','no')}<br>
+    ${("1" + "2")?eval}<br><!-- 执行 -->
+    ${("1" + "2")?is_string?string('yes','no')}<br><!-- 执行 -->
+    ${("1" + "2")?eval?is_string?string('yes','no')}<br><!-- 执行 -->
+</body>
+</html>
