@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Freemarker</title>
@@ -31,16 +31,16 @@
     <!-- 变量的定义、赋值、运算 -->
     <p>变量的定义、赋值、运算</p>
     <#assign a = 100 />
-    <p>a = <span color="red"> ${a} </span></p>
-    <p>a + 100 = <span color="red"> ${a+100} </span></p>
-    <p>a - 100 = <span color="red"> ${a-100} </span></p>
-    <p>a * 100 = <span color="red"> ${a*100} </span></p>
-    <p>a / 100 = <span color="red"> ${a/100} </span></p>
+    <p>a = <span style="color: red;"> ${a} </span></p>
+    <p>a + 100 = <span style="color: red;"> ${a+100} </span></p>
+    <p>a - 100 = <span style="color: red;"> ${a-100} </span></p>
+    <p>a * 100 = <span style="color: red;"> ${a*100} </span></p>
+    <p>a / 100 = <span style="color: red;"> ${a/100} </span></p>
     <hr>
 
     <!-- 自定义对象变量的取值 -->
     <p>自定义对象变量的取值</p>
-    <p><span color="red">${(user.name)!}</span><p><!-- 对整体进行判断,先判断user存在不存在,在判断name存在不存在 -->
+    <p><span style="color: red;">${(user.name)!}</span><p><!-- 对整体进行判断,先判断user存在不存在,在判断name存在不存在 -->
     <p>${(user.brief)!}<p><!-- 富文本形式输出 -->
     <p>${(user.brief)!?html}<p><!-- 文本形式输出 -->
     <hr>
@@ -48,12 +48,12 @@
     <!-- 集合List遍历 -->
     <p>集合List遍历</p>
     <#list list as item>
-    <p><span color="red">${item!}</span></p>
+    <p><span style="color: red;">${item!}</span></p>
     </#list>
     <p>集合Map遍历</p>
     <!-- 集合Map遍历 -->
     <#list map?keys as key>
-    <p><span color="red">${key!} : ${map[key]!}</span><p>
+    <p><span style="color: red;">${key!} : ${map[key]!}</span><p>
     </#list>
     <hr>
 
@@ -61,50 +61,50 @@
     <p>if语法</p>
     <#assign value = 90 />
     <#if value == 99>
-    <p><span color="red">value = 99</span></p>
+    <p><span style="color: red;">value = 99</span></p>
     </#if>
 
     <#if value == 99>
-    <p><span color="red">value = 99</span></p>
+    <p><span style="color: red;">value = 99</span></p>
     <#else>
-    <p><span color="red">value != 99</span></p>
+    <p><span style="color: red;">value != 99</span></p>
     </#if>
 
     <#if value &gt; 99>
-    <p><span color="red">value > 99</span></p>
+    <p><span style="color: red;">value > 99</span></p>
     <#elseif value ==99 >
-    <p><span color="red">value = 99</span></p>
+    <p><span style="color: red;">value = 99</span></p>
     <#else>
-    <p><span color="red">value < 99</span></p>
+    <p><span style="color: red;">value < 99</span></p>
     </#if>
 
     <#if list??><!-- ??判断是否为null,?exit是否存在 -->
     <#list list as item>
-    <p><span color="red">${item!}</span></p>
+    <p><span style="color: red;">${item!}</span></p>
     </#list>
     </#if>
 
     <#if var??><!-- ??判断是否为null,?exit是否存在 -->
-    <p>var = <span color="red">${var!}</span></p>
+    <p>var = <span style="color: red;">${var!}</span></p>
     </#if>
     <#if title??><!-- ??判断是否为null,?exit是否存在 -->
-    <p>title = <span color="red">${title!}</span></p>
+    <p>title = <span style="color: red;">${title!}</span></p>
     </#if>
 
     <#assign name='python'>
     <#if name == 'python' || name == 'java'>
-    <p>name = <span color="red">python or java</span><br>
+    <p>name = <span style="color: red;">python or java</span><br>
     </#if>
     <#if name == 'python' && name?length == 6>
-    <p><span color="red">python's length is 6</span><br>
+    <p><span style="color: red;">python's length is 6</span><br>
     </#if>
     <#assign name='java'>
     <#if (name == 'python' && name?length == 6) || (name=='java')>
-    <p><span color="red">python's length is 6 or java</span><br>
+    <p><span style="color: red;">python's length is 6 or java</span><br>
     </#if>
     <#assign name='node.js'>
     <#if !((name == 'python' && name?length == 6) || (name=='java'))>
-    <p><span color="red">not (python's length is 6 or java)</span><br>
+    <p><span style="color: red;">not (python's length is 6 or java)</span><br>
     </#if>
     <hr>
 
@@ -130,24 +130,24 @@
     <p>字符串常用内建函数</p>
     <#assign a = 'hello'/>
     <#assign b = 'world'/>
-    <p>a = <span color="red">${a}</span></p>
-    <p>b = <span color="red">${b}</span></p>
+    <p>a = <span style="color: red;">${a}</span></p>
+    <p>b = <span style="color: red;">${b}</span></p>
     <!-- 连接 -->
-    <p>连接---<span color="red">${a+b}</span></p>
+    <p>连接---<span style="color: red;">${a+b}</span></p>
     <!-- 截取 -->
-    <p>截取---<span color="red">${(a+b)?substring(5,8)}</span></p>
+    <p>截取---<span style="color: red;">${(a+b)?substring(5,8)}</span></p>
     <!-- 长度 -->
-    <p>长度---<span color="red">${(a+b)?length}</span></p>
+    <p>长度---<span style="color: red;">${(a+b)?length}</span></p>
     <!-- 大写 -->
-    <p>大写---<span color="red">${(a+b)?upper_case}</span></p>
+    <p>大写---<span style="color: red;">${(a+b)?upper_case}</span></p>
     <!-- 小写 -->
-    <p>小写---<span color="red">${(a+b)?lower_case}</span></p>
+    <p>小写---<span style="color: red;">${(a+b)?lower_case}</span></p>
     <!-- 获取出现的位置 -->
-    <p>index_of---<span color="red">${(a+b)?index_of('w')}</span></p>
+    <p>index_of---<span style="color: red;">${(a+b)?index_of('w')}</span></p>
     <!-- 获取最后一次出现的位置 -->
-    <p>last_index_of---<span color="red">${(a+b)?last_index_of('o')}</span></p>
+    <p>last_index_of---<span style="color: red;">${(a+b)?last_index_of('o')}</span></p>
     <!-- 替换 -->
-    <p>替换---<span color="red">${(a+b)?replace('o','xx')}</span></p>
+    <p>替换---<span style="color: red;">${(a+b)?replace('o','xx')}</span></p>
     <br><br><hr>
 
     <!-- 自定义函数(整数排序sort_int) -->
