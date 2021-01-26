@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf</title>
+    <script type="text/javascript" th:src="@{/js/jaray.js}"></script>
+
+    <link th:href="@{http://www.jq22.com/jquery/bootstrap-3.3.4.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/js/bootstrap-treeview.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/js/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<button id="btn">123123</button>
+    <div id="treeview1" class="" style="width:600px;"></div>
+    <h3>变量表达式--${...}</h3>
+    <p><span th:text="${name}"></span></p>
+    <p><span th:text="${user.name}">请跟我来</span></p>
+    <p th:text="${#dates.format(date,'yyyy-MM-dd')}"/>
+    <hr>
+    <h2>
+        <p>Name: <span th:text="${user.name}"></span>.</p>
+        <p>Age: <span th:text="${user.age}"></span>.</p>
+        <p>brief: <span th:text="${user.brief}"></span>.</p>
+        <p>brief: <span th:utext="${user.brief}"></span>.</p>
+    </h2>
+    <p>选择变量表达式</p>
+    <h2 th:object="${user}">
+        <p th:text="'用户姓名：' + *{name}"/>
+        <p th:text="'用户年龄：' + *{age}"/>
+        <p th:text="'用户描述：' + *{brief}"/>
+        <p th:utext="'用户描述：' + *{brief}"/>
+    </h2>
+    <hr>
+    <h2 th:each="item, stat : ${list}">
+        <p th:text="${item}"></p>
+    </h2>
+    <hr>
+    <!-- 运算 -->
+    <h2>运算</h2>
+    <p th:text="'1+2=' + (1 + 2)"/>
+    <h2>数据处理</h2>
+    <p th:text="${#dates.format(date,'yyyy-MM-dd')}"/>
+    <p th:text="${#dates.format(date,'yyyy-MM-dd HH:mm:ss.SSS')}"/>
+    <hr/>
+    <p th:text="${#strings.replace('www.baidu.cn','.','$')}"/>
+    <p th:text="${#strings.toUpperCase('www.baidu.cn')}"/>
+    <p th:text="${#strings.trim('www.baidu.cn')}"/>
+    <hr/>
+    <p th:text="${#sets.contains(names,'boot-0')}"/>
+    <p th:text="${#sets.contains(names,'boot-9')}"/>
+    <p th:text="${#sets.size(names)}"/>
+    <hr/>
+    <p th:text="${#sets.contains(ids,0)}"/>
+    <p th:text="${ids[1]}"/>
+    <p th:text="${names[1]}"/>
+
+    <h2>页面跳转</h2>
+    <a th:href="@{/thymeleaf}">访问controller方法</a>
+    <a th:href="@{/static.html}">访问静态页面</a>
+
+    <h2>访问不同属性范围中的内容</h2>
+    <p th:text="${#httpServletRequest.getRemoteAddr()}"/>
+    <p th:text="${#httpServletRequest.getAttribute('requestMessage')}"/>
+    <p th:text="${#httpSession.getId()}"/>
+    <p th:text="${#httpServletRequest.getServletContext().getRealPath('/')}"/>
+    <hr/>
+    <!--/*@thymesVar id="requestMessage" type=""*/-->
+    <p th:text="'requestMessage = ' + ${requestMessage}"/>
+    <p th:text="'sessionMessage = ' + ${session.sessionMessage}"/>
+    <p th:text="'applicationMessage = ' + ${application.applicationMessage}"/>
+
+    <h2>逻辑处理</h2>
+
+
+    <script th:src="@{https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap-treeview.js}"></script>
+<script type="text/javascript">
+    $(function() {
+        var defaultData = [
+            {
+                text: 'Parent 1',
+                href: '#parent1',
+                tags: ['4'],
+                nodes: [
+                    {
+                        text: 'Child 1',
+                        href: '#child1',
+                        tags: ['2'],
+                        nodes: [
+                            {
+                                text: 'Grandchild 1',
+                                href: '#grandchild1',
+                                tags: ['0']
+                            },
+                            {
+                                text: 'Grandchild 2',
+                                href: '#grandchild2',
+                                tags: ['0']
+                            }
+                        ]
+                    },
+                    {
+                        text: 'Child 2',
+                        href: '#child2',
+                        tags: ['0']
+                    }
+                ]
+            },
+            {
+                text: 'Parent 2',
+                href: '#parent2',
+                tags: ['0']
+            },
+            {
+                text: 'Parent 3',
+                href: '#parent3',
+                tags: ['0']
+            },
+            {
+                text: 'Parent 4',
+                href: '#parent4',
+                tags: ['0']
+            },
+            {
+                text: 'Parent 5',
+                href: '#parent5'  ,
+                tags: ['0']
+            }
+        ];
+
+        var alternateData = [
+            {
+                text: 'Parent 1',
+                tags: ['2'],
+                nodes: [
+                    {
+                        text: 'Child 1',
+                        tags: ['3'],
+                        nodes: [
+                            {
+                                text: 'Grandchild 1',
+                                tags: ['6']
+                            },
+                            {
+                                text: 'Grandchild 2',
+                                tags: ['3']
+                            }
+                        ]
+                    },
+                    {
+                        text: 'Child 2',
+                        tags: ['3']
+                    }
+                ]
+            },
+            {
+                text: 'Parent 2',
+                tags: ['7']
+            },
+            {
+                text: 'Parent 3',
+                icon: 'glyphicon glyphicon-earphone',
+                href: '#demo',
+                tags: ['11']
+            },
+            {
+                text: 'Parent 4',
+                icon: 'glyphicon glyphicon-cloud-download',
+                href: '/demo.html',
+                tags: ['19'],
+                selected: true
+            },
+            {
+                text: 'Parent 5',
+                icon: 'glyphicon glyphicon-certificate',
+                color: 'pink',
+                backColor: 'red',
+                href: 'http://www.tesco.com',
+                tags: ['available','0']
+            }
+        ];
+
+        $('#btn').on('click',function(e){
+            $('#treeview1').treeview({
+                data: defaultData
+            });
+            $('#treeview1').show();
+            e.stopPropagation();
+        });
+        $('body').on('click',function(e){
+            var xx = e.pageX || e.clientX + document.body.scrollLeft;
+            var yy = e.pageY || e.clientY + document.body.scrollTop;
+
+            var h = $('body').outerHeight(true)-$('body').height();
+            var w = $('body').outerWidth(true)-$('body').width();
+
+            var x = $('#treeview1').offset().left;
+            var y = $('#treeview1').offset().top;
+
+            var width = $('#treeview1').width();
+            var height = $('#treeview1').height();
+
+            let m = parseInt($('body').css("margin"));
+
+            console.log("xx="+xx,"x="+x,"w="+w,"width="+width);
+            console.log("yy="+yy,"y="+y,"h="+h,"height="+height);
+
+            if((xx) < x || (yy+h) < y ){
+                $('#treeview1').hide();
+            }
+            if((xx) > (x+width) || (yy+h+m) > (y+height)){
+                $('#treeview1').hide();
+            }
+        });
+    });
+    </script>
+</body>
+</html>
