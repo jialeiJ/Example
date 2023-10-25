@@ -15,7 +15,7 @@
   "dependencies": {
     "@jiaminghi/data-view": "^2.9.9",
     "axios": "^0.21.1",
-    "crypto-js": "^4.0.0",
+    "crypto-js": "^4.2.0",
     "echarts": "^4.8.0",
     "echarts-gl": "^1.1.1",
     "element-ui": "^2.15.14",
