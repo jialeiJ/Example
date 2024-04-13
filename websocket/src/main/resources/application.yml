@@ -1,0 +1,17 @@
+# 应用服务 WEB 访问端口
+server:
+  port: 8089
+spring:
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 1
+      #    password: 123456 #默认为空
+      timeout: 3000ms
+      lettuce:
+        pool:
+          max-active: 20
+          max-wait: -1
+          max-idle: 8
+          min-idle: 0
