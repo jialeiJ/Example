@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vienna.jaray.mapper.PaySalaryMapper">
+    <insert id="insertBatch">
+        INSERT INTO pay_salary (kehuzh,name,zhjhao,dianhh,yngyjg,gnlisj,wjigomc,jigomc,danwbh,danwmc,jinbrq,dwkehhao,guiydh,dwOrigTranDt,tranDt,origTranDt,
+                                jioyje,ywzlbh,ywzlbhmc,nmgflag,gender,age,khzhlx,khzhlx,dsyhbh,chulzt,zywwth,zhyodm,dliywh,farmerFlag,jio1gy,daifqd,dataDt,id) VALUES
+        <foreach collection="list" separator="," item="item">
+            (#{item.kehuzh},#{item.name},#{item.zhjhao},#{item.dianhh},#{item.yngyjg},#{item.gnlisj},#{item.wjigomc},#{item.jigomc},#{item.danwbh},#{item.danwmc},#{item.jinbrq},#{item.dwkehhao},#{item.guiydh}
+            ,#{item.dwOrigTranDt},#{item.tranDt},#{item.origTranDt},#{item.jioyje},#{item.ywzlbh},#{item.ywzlbhmc},#{item.nmgflag},#{item.gender},#{item.age},#{item.khzhlx},#{item.khzhlx},#{item.dsyhbh},#{item.chulzt}
+            ,#{item.zywwth},#{item.zhyodm},#{item.dliywh},#{item.farmerFlag},#{item.jio1gy},#{item.daifqd},#{item.dataDt},#{item.id})
+        </foreach>
+    </insert>
+</mapper>

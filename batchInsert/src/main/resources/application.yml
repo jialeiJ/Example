@@ -1,0 +1,39 @@
+spring:
+  # 数据库链接配置
+  datasource:
+    url: jdbc:mysql://192.168.5.101:3306/jaray-database?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=UTC&&rewriteBatchedStatements=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    # 链接池
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      # 链接池初始化大小
+      initial-size: 8
+      # 最大活跃数
+      max-active: 16
+      # 最小空闲数
+      min-idle: 1
+      # 最大等待时间
+      max-wait: 60000
+
+# mybatis配置
+mybatis:
+  check-config-location: true
+  #  mybatis框架配置文件，对mybatis的生命周期起作用
+  config-location: "classpath:mybatis/mybatis-config.xml"
+  #  配置xml路径
+  mapper-locations: "classpath:mybatis/mapper/*Mapper.xml"
+  #  配置model包路径
+  type-aliases-package: "com.vienna.jaray.entity.*"
+
+# 异步线程配置
+async:
+  executor:
+    thread:
+      core_pool_size: 3  # 配置核心线程数
+      max_pool_size: 15 # 配置最大线程数
+      queue_capacity: 10 # 配置队列大小
+      name:
+        prefix: async-importDB- # 配置线程池中的线程的名称前缀
+
