@@ -15,3 +15,6 @@ spring:
           max-wait: -1
           max-idle: 8
           min-idle: 0
+    mongodb:
+      uri: mongodb://192.168.5.101:27017/idatabase
+      auto-index-creation: true

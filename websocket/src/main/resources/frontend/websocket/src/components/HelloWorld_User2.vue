@@ -3,6 +3,10 @@
     <h1>{{ msg }}</h1>
     <p>USER2客户端发送的信息：{{ reqData }}</p>
     <p>USER2客户端接受的信息：{{ resData }}</p>
+    <p>
+      <span>完成度：</span>
+      <meter min="0" max="100" :value="value"></meter>
+    </p>
     <button @click="user2submit">USER2发送信息</button>
 
     <button @click="submit">群发信息</button>
@@ -19,6 +23,7 @@ export default {
   },
   data () {
     return {
+      value: 0,
       reqData: null,
       resData: null,
       websock: null,
@@ -56,6 +61,7 @@ export default {
       let that = this
       const data = JSON.parse(e.data);
       console.log('data', data);
+      that.value = data
       that.resData = data;
     },
     websocketsend(Data){//数据发送
